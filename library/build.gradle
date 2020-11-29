@@ -2,19 +2,24 @@ apply plugin: 'com.android.library'
 apply from: '../maven_push.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        buildConfigField 'String', 'API_HOST', "\"https://api.fondy.eu\""
     }
     buildTypes {
         release {
             minifyEnabled false
+        }
+        debug {
+            buildConfigField "int", "myInt", "0"
+            buildConfigField "String", "myStr", "\"hello\""
+            buildConfigField "boolean", "myFlag", "true"
         }
     }
 
@@ -25,7 +30,14 @@ android {
 }
 
 dependencies {
-    compile 'com.cloudipsp:android:1.01'
-    compile 'com.google.android.gms:play-services-gcm:9.8.0'
-    compile 'com.github.devnied.emvnfccard:library:2.1.1'
+//    implementation 'com.cloudipsp:android:1.01'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:support-v4:28.0.0'
+    compileOnly 'com.google.android.gms:play-services-base:17.0.0'
+    compileOnly 'com.google.android.gms:play-services-wallet:18.0.0'
+    implementation 'com.google.android.gms:play-services-gcm:17.0.0'
+//    implementation 'com.google.android.gms:play-services-iid:10.2.1'
+    implementation 'com.github.devnied.emvnfccard:library:2.1.1'
 }
